@@ -1,23 +1,37 @@
 import { Head } from "$fresh/runtime.ts";
-import Counter from "../islands/Counter.tsx";
+import { Chart } from "$fresh_charts/mod.ts";
+import { ChartColors, transparentize } from "$fresh_charts/utils.ts";
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Fresh App</title>
+        <title>Example Chart</title>
       </Head>
       <div class="p-4 mx-auto max-w-screen-md">
-        <img
-          src="/logo.svg"
-          class="w-32 h-32"
-          alt="the fresh logo: a sliced lemon dripping with juice"
+        <Chart
+          type="line"
+          options={ {
+            devicePixelRatio: 1,
+            scales: { yAxes: [{ ticks: { beginAtZero: true } }] },
+          } }
+          data={ {
+            labels: ["1", "2", "3"],
+            datasets: [{
+              label: "Sessions",
+              data: [123, 234, 234],
+              borderColor: ChartColors.Red,
+              backgroundColor: transparentize(ChartColors.Red, 0.5),
+              borderWidth: 1,
+            }, {
+              label: "Users",
+              data: [346, 233, 123],
+              borderColor: ChartColors.Blue,
+              backgroundColor: transparentize(ChartColors.Blue, 0.5),
+              borderWidth: 1,
+            }],
+          } }
         />
-        <p class="my-6">
-          Welcome to `fresh`. Try updating this message in the ./routes/index.tsx
-          file, and refresh.
-        </p>
-        <Counter start={3} />
       </div>
     </>
   );
